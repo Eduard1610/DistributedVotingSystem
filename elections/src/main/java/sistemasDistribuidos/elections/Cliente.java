@@ -10,44 +10,36 @@ import java.nio.charset.StandardCharsets;
 public class Cliente {
 
     public static void main(String[] args) {
-        // Votar por un candidato
         votarPorCandidato("John Doe");
-
-        // Obtener todos los votos
         obtenerTodosLosVotos();
     }
 
     public static void votarPorCandidato(String candidateName) {
         try {
-            URL url = new URL("http://localhost:8080/votes");
+            URL url = new URL("http://localhost:9191/votes");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-
             String input = "{\"candidateName\":\"" + candidateName + "\"}";
-
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(input.getBytes(StandardCharsets.UTF_8));
             }
-
             int responseCode = conn.getResponseCode();
             System.out.println("Response Code (votar): " + responseCode);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     public static void obtenerTodosLosVotos() {
         try {
-            URL url = new URL("http://localhost:8080/votes");
+            URL url = new URL("http://localhost:9191/votes");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
-
             int responseCode = conn.getResponseCode();
             System.out.println("Response Code (obtener): " + responseCode);
-
             if (responseCode == 200) { // OK
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                     StringBuilder response = new StringBuilder();
