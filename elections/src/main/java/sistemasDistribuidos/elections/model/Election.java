@@ -1,15 +1,20 @@
 package sistemasDistribuidos.elections.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-public class Voter {
+public class Election {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String email;
-    private String password;
+
+    @OneToMany
+    private List<Candidate> candidates;
+
+    @OneToMany
+    private List<Vote> votes;
 
     public Long getId() {
         return id;
@@ -27,21 +32,22 @@ public class Voter {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Candidate> getCandidates() {
+        return candidates;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
-    public String getPassword() {
-        return password;
+    public List<Vote> getVotes() {
+        return votes;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
     }
 
     // Getters y Setters
+
 }

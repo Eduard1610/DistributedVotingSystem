@@ -1,19 +1,15 @@
 package sistemasDistribuidos.elections.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Candidate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    private String party;
 
-    public Candidate() {}
+    // Getters y Setters
 
-    public Candidate(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
